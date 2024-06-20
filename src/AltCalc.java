@@ -64,7 +64,7 @@ public class AltCalc {
 
     static void printInQuotes(String text) {
         if (text.length() > 40) {
-            System.out.println("...");
+            System.out.println("\"" + text.substring(0, 40) + "..." + "\"");
         } else {
             System.out.println("\"" + text + "\"");
         }
@@ -106,7 +106,7 @@ public class AltCalc {
     }
 
     static void divideString(String str, int divisor) {
-        if (divisor < 1 || divisor > 10) {
+        if (divisor < 1 && divisor > 10) {
             throw new IllegalArgumentException("Число должно быть от 1 до 10");
         }
         int newLen = str.length() / divisor;
