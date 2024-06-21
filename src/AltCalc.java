@@ -9,6 +9,9 @@ public class AltCalc {
     }
 
     static void calculate(String s) throws Exception {
+        if (s.length() > 10) {
+            throw new IllegalArgumentException("Длина строки не должна превышать 10 символов");
+        }
         char action;
         String[] data;
         if (s.contains(" + ")) {
