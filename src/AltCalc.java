@@ -9,6 +9,7 @@ public class AltCalc {
     }
 
     static void calculate(String s) throws Exception {
+
         char action;
         String[] data;
         if (s.contains(" + ")) {
@@ -25,6 +26,10 @@ public class AltCalc {
             action = '/';
         } else {
             throw new Exception("Некорректный знак действий");
+        }
+
+        if (!isQuotedString(data[0])) {
+            throw new Exception("Первым элементом должна быть строка");
         }
 
         if (action == '*' || action == '/') {
@@ -52,10 +57,11 @@ public class AltCalc {
         } else {
             int divisor = Integer.parseInt(data[1]);
             divideString(data[0], divisor);
-            if (data[0].length() > 10) {
-                throw new IllegalArgumentException("Длина строки не должна превышать 10 символов");
-            }
         }
+    }
+
+    static boolean isQuotedString(String str) {
+        return str.startsWith("\"") && str.endsWith("\"");
     }
 
     static void removeQuotes(String[] data) {
@@ -69,7 +75,7 @@ public class AltCalc {
             throw new Exception("Строчку можно делить или умножать только на число");
         }
         int value = Integer.parseInt(operand);
-        if (value < 1 && value > 10) {
+        if (value < 1 || value > 10) {
             throw new IllegalArgumentException("Число должно быть от 1 до 10");
         }
     }
@@ -97,11 +103,11 @@ public class AltCalc {
 
     static void multiplyString(String str, int multiplier) {
         if (multiplier >= 1 && multiplier <= 10) {
-            String result = "";
+            StringBuilder result = new StringBuilder();
             for (int i = 0; i < multiplier; i++) {
-                result += str;
+                result.append(str);
             }
-            printInQuotes(result);
+            printInQuotes(result.toString());
         } else {
             throw new IllegalArgumentException("Число должно быть от 1 до 10");
         }
@@ -118,7 +124,7 @@ public class AltCalc {
     }
 
     static void divideString(String str, int divisor) {
-        if (divisor < 1 && divisor > 10) {
+        if (divisor < 1 || divisor > 10) {
             throw new IllegalArgumentException("Число должно быть от 1 до 10");
         }
         int newLen = str.length() / divisor;
