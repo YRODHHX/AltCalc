@@ -9,9 +9,6 @@ public class AltCalc {
     }
 
     static void calculate(String s) throws Exception {
-        if (s.length() > 10) {
-            throw new IllegalArgumentException("Длина строки не должна превышать 10 символов");
-        }
         char action;
         String[] data;
         if (s.contains(" + ")) {
@@ -38,14 +35,26 @@ public class AltCalc {
 
         if (action == '+') {
             printInQuotes(concatenateStrings(data[0], data[1]));
+            if (data[0].length() > 10) {
+                throw new IllegalArgumentException("Длина строки не должна превышать 10 символов");
+            }
         } else if (action == '*') {
             int multiplier = Integer.parseInt(data[1]);
             multiplyString(data[0], multiplier);
+            if (data[0].length() > 10) {
+                throw new IllegalArgumentException("Длина строки не должна превышать 10 символов");
+            }
         } else if (action == '-') {
             subtractString(data[0], data[1]);
+            if (data[0].length() > 10) {
+                throw new IllegalArgumentException("Длина строки не должна превышать 10 символов");
+            }
         } else {
             int divisor = Integer.parseInt(data[1]);
             divideString(data[0], divisor);
+            if (data[0].length() > 10) {
+                throw new IllegalArgumentException("Длина строки не должна превышать 10 символов");
+            }
         }
     }
 
